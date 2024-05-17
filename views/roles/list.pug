@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    h1= title
+    table
+        tr 
+            th id
+            th Код
+            th Название
+        each item in roles
+            tr
+                td= item.id
+                td= item.code
+                td= item.label

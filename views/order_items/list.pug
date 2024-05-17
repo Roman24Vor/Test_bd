@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+    h1= title
+    if user.id_role == '3'
+      button(id='add_item') Добавить
+    table
+        tr 
+            th id
+            th Название
+            th Id заказа
+            th Сумма
+        each item in order_items
+            tr
+                td= item.id
+                td
+                    a(href='/order_items/' + item.id)= item.label
+                td= item.id_order
+                td= item.amount
+
+
+    div#add_item_popup.q-window
+          div.q-window-block(style="width:400px;height:220px;margin:-150px 0 0 -400px")
+            div.q-window-header Добавить элемент
+              a#add_item_popup_close(style="position: relative;left: 300px;") X
+            div.q-window-body.q-form
+              div.q-window-filters-form
+                div.q-form-data
+                  label(for="inpLabel") Название
+                  input#inpLabel(type="text")
+                div.q-form-data
+                  label(for="inpOrder") Заказ
+                  select#inpOrder
+                    each item in orders
+                        option(value= item.id)= item.label
+                div.q-form-data
+                  label(for="inpAmount") Сумма
+                  input#inpAmount(type="text")
+
+            div.q-buttons
+              a#submit_add_item Создать
+              a#cancel_add_item Отменить

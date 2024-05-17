@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    br    
+    div
+        ul
+           a(href='/') Главная страница
+           if user
+             if can_view_clients
+               li
+                 a(href='/clients') Клиенты
+             if can_view_users
+               li
+                 a(href='/users') Пользователи
+             if can_view_orders
+               li
+                 a(href='/orders') Заказы
+             if can_view_order_items
+               li
+                 a(href='/order_items') Элементы заказа
+             if can_view_order_statuses
+               li
+                 a(href='/order_statuses') Статусы заказа
+             if can_view_payments
+               li
+                 a(href='/payments') Платежи  
+             if can_view_payment_types
+               li
+                 a(href='/payment_types') Типы платежей  
+             li
+               a(href='', id='Logout') Выйти 
+           else
+               li
+                 a(href='', id='Login') Войти
+

@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+    h1= title
+    if user.id_role == '2'
+        button(id='add_payment') Добавить оплату
+    table
+        tr 
+            th id
+            th Заказ
+            th Вид оплаты
+            th Сумма платежа
+        each item in payments
+            tr
+                td= item.id
+                td= item.order_label
+                td= item.payment_type_label
+                td= item.amount
+
+    div#add_payment_popup.q-window
+          div.q-window-block(style="width:400px;height:220px;margin:-150px 0 0 -400px")
+            div.q-window-header Добавить оплату
+              a#add_payment_popup_close(style="position: relative;left: 300px;") X
+            div.q-window-body.q-form
+              div.q-window-filters-form
+                div.q-form-data
+                  label(for="inpOrder") Заказ
+                  select#inpOrder
+                    each item in orders
+                        option(value= item.id)= item.label
+                div.q-form-data
+                  label(for="inpTypePayment") Тип оплаты
+                  select#inpTypePayment
+                    each item in paymentType
+                        option(value= item.id)= item.label
+                div.q-form-data
+                  label(for="inpAmount") Сумма
+                  input#inpAmount(type="text")
+
+            div.q-buttons
+              a#submit_add_payment Создать
+              a#cancel_add_payment Отменить

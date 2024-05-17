@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+    //script(src='/javascripts/clients.js')
+    h1= title
+    table
+        tr 
+            th id
+            th Имя
+        each item in clients
+            tr
+                td= item.id
+                td= item.label 

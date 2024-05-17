@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+    h1= title
+    if user.id_role == '3'
+      button(id='create_order') Создать
+    if user.id_role == '2'
+      button(id='change_order_status') Изменить статус заказа
+    table
+        tr 
+            th id
+            th Название
+            th Статус
+            th Клиент
+            th Сумма
+        each item in orders
+            tr
+                td= item.id
+                td
+                    a(href='/orders/' + item.id)= item.label
+                td= item.order_status_label
+                td= item.client_label
+                td= item.amount
+
+
+    div#create_order_popup.q-window
+          div.q-window-block(style="width:400px;height:220px;margin:-150px 0 0 -400px")
+            div.q-window-header Создать заказ
+              a#create_order_popup_close(style="position: relative;left: 300px;") X
+            div.q-window-body.q-form
+              div.q-window-filters-form
+                div.q-form-data
+                  label(for="inpLabel") Название
+                  input#inpLabel(type="text")
+                div.q-form-data
+                  label(for="inpClient") Клиент
+                  select#inpClient
+                    each item in clients
+                        option(value= item.id)= item.label
+                div.q-form-data
+                  label(for="inpAmount") Сумма
+                  input#inpAmount(type="text")
+
+            div.q-buttons
+              a#submit_create_order Создать
+              a#cancel_create_order Отменить
+
+    div#change_order_status_popup.q-window
+          div.q-window-block(style="width:400px;height:220px;margin:-150px 0 0 -400px")
+            div.q-window-header Изменить статус заказа
+              a#change_order_status_popup_close(style="position: relative;left: 300px;") X
+            div.q-window-body.q-form
+              div.q-window-filters-form
+                div.q-form-data
+                  label(for="inpOrder") Заказ
+                  select#inpOrder
+                    each item in orders
+                        option(value= item.id)= item.label
+                div.q-form-data
+                  label(for="inpStatus") Статус
+                  select#inpStatus
+                    each item in order_statuses
+                        option(value= item.id)= item.label
+            div.q-buttons
+              a#submit_change_order_status Изменить
+              a#cancel_change_order_status Отменить
